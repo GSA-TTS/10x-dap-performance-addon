@@ -5,29 +5,29 @@
   "author": "dap-performance-addon",
   "version": "0.0.0",
   "type": "module",
-  "main": "dist/src/index.js",
-  "module": "dist/src/index.js",
+  "main": "dist/dap-performance-addon.cjs",
+  "module": "dist/dap-performance-addon.js",
   "exports": {
-    ".": "./dist/src/index.js",
-    "./dap-performance-addon.js": "./dist/src/dap-performance-addon.js"
+    "./dap-performance-addon.cjs": "./dist/dap-performance-addon.cjs",
+    "./dap-performance-addon.global.js": "./dist/dap-performance-addon.global.js",
+    "./dap-performance-addon.js": "./dist/dap-performance-addon.js"
   },
   "scripts": {
     "analyze": "cem analyze --litelement",
-    "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"web-dev-server\"",
+    "start": "tsup && concurrently -k -r \"tsup --watch\" \"web-dev-server\"",
     "build": "tsup",
-    "prepublish": "tsc && npm run analyze -- --exclude dist",
+    "prepublish": "tsup && npm run analyze -- --exclude dist",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
     "prepare": "husky",
-    "test": "tsc && wtr --coverage",
-    "test:watch": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\""
+    "test": "tsup && wtr --coverage",
+    "test:watch": "tsup && concurrently -k -r \"tsup --watch\" \"wtr --watch\""
   },
   "dependencies": {
     "lit": "^3.1.4",
     "web-vitals": "^4.2.4"
   },
   "devDependencies": {
-    "@custom-elements-manifest/analyzer": "^0.10.3",
     "@open-wc/eslint-config": "^12.0.3",
     "@open-wc/testing": "^4.0.0",
     "@types/mocha": "^10.0.7",
