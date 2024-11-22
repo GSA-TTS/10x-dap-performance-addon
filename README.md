@@ -1,38 +1,24 @@
-# \<dap-performance-addon>
+# Digital Analytics Program Performance (DAP) Add-on
 
-This webcomponent follows the [open-wc](https://github.com/open-wc/open-wc) recommendation.
-
-## Installation
-
-```bash
-npm i dap-performance-addon
-```
-
-## Usage
-
-```html
-<script type="module">
-  import 'dap-performance-addon/dap-performance-addon.js';
-</script>
-
-<dap-performance-addon></dap-performance-addon>
-```
+This is a proof-of-concept for an add-on for DAP's implementation of GA4. It provides data formatting for the events 
+from the Google's [`web-vitals`](https://github.com/GoogleChrome/web-vitals) package that would use Google Analytics as 
+a collector of performance (page speed and user experience) metrics.
 
 ## Linting and formatting
 
-To scan the project for linting and formatting errors, run
+To scan the project for linting and formatting errors, run:
 
 ```bash
 npm run lint
 ```
 
-To automatically fix linting and formatting errors, run
+To automatically fix linting and formatting errors, run:
 
 ```bash
 npm run format
 ```
 
-## Testing with Web Test Runner
+## Testing with Vitest
 
 To execute a single test run:
 
