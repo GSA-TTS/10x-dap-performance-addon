@@ -1,5 +1,5 @@
 import { it, describe, expect } from 'vitest';
-import { onCLS, onFCP, onINP, onLCP } from '../../src/index.js';
+import { onCLS, onFCP, onINP, onLCP } from '../../src/web-vitals.js';
 
 describe('DAP Performance Addon', () => {
   it('defines methods to track Core Web Vitals', () => {
