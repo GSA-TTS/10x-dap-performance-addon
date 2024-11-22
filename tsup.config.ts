@@ -2,7 +2,7 @@ import { defineConfig } from 'tsup';
 
 export default defineConfig({
   entry: {
-    'dap-performance-addon': 'src/index.ts'
+    'dap-performance-addon': 'src/index.ts',
   },
   format: ['cjs', 'esm', 'iife'],
   dts: true,
