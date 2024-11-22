@@ -7,4 +7,4 @@ setTimeout(() => {
     const clone = template.content.cloneNode(true);
     articleRoot.appendChild(clone);
   }
-}, 500);
+}, 750);
