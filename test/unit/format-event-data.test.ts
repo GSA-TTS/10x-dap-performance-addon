@@ -2,7 +2,7 @@ import { it, describe, expect } from 'vitest';
 import { formatEventData } from '../../src/format-event-data.js';
 
 describe('formatEventData', () => {
-  it('formats LCP data', () => {
+  it('should format LCP data correctly', () => {
     const lcpAttribution = {
       url: 'https://localhost/',
       timeToFirstByte: 100,
@@ -23,8 +23,62 @@ describe('formatEventData', () => {
       debug_target: 'body>div#main',
     });
   });
+
+  it('should format INP data correctly', () => {
+    const inpAttribution = {
+      interactionType: 'mousedown',
+      interactionTime: 1000,
+      loadState: 'interactive',
+      interactionTarget: 'body>button#submit',
+      inputDelay: 50,
+      processingDuration: 20,
+      presentationDelay: 5
+    };
+
+    // @ts-ignore
+    const result = formatEventData('INP', inpAttribution);
+
+    expect(result).toEqual({
+      debug_event: 'mousedown',
+      debug_time: 1000,
+      debug_load_state: 'interactive',
+      debug_target: 'body>button#submit',
+      debug_interaction_delay: 50,
+      debug_processing_duration: 20,
+      debug_presentation_delay: 5
+    });
+  });
+
+  it('should format CLS data correctly', () => {
+    const clsAttribution = {
+      largestShiftTime: 1000,
+      loadState: 'complete',
+      largestShiftTarget: 'body>div#main'
+    };
+
+    // @ts-ignore
+    const result = formatEventData('CLS', clsAttribution);
+
+    expect(result).toEqual({
+      debug_time: 1000,
+      debug_load_state: 'complete',
+      debug_target: 'body>div#main'
+    });
+  });
+
+  it('should return default/empty params if no attribution data is provided', () => {
+    // @ts-ignore
+    const result = formatEventData('unknown', null);
+
+    expect(result).toEqual({
+      debug_target: '(not set)'
+    });
+  });
 });
 
+/**
+ * Samples of event data from the web-vitals.js package are below:
+ */
 // {
 //     "name": "FCP",
 //     "value": 464.1000000014901,
