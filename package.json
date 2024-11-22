@@ -1,6 +1,6 @@
 {
   "name": "dap-performance-addon",
-  "description": "Webcomponent dap-performance-addon following open-wc recommendations",
+  "description": "Track page performance events with GA4",
   "license": "MIT",
   "author": "dap-performance-addon",
   "version": "0.0.0",
@@ -20,8 +20,9 @@
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
     "prepare": "husky",
-    "test": "tsup && wtr --coverage",
-    "test:watch": "tsup && concurrently -k -r \"tsup --watch\" \"wtr --watch\""
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage"
   },
   "dependencies": {
     "lit": "^3.1.4",
@@ -33,17 +34,20 @@
     "@types/mocha": "^10.0.7",
     "@typescript-eslint/eslint-plugin": "^7.16.0",
     "@typescript-eslint/parser": "^7.16.0",
+    "@vitest/coverage-v8": "^2.1.5",
     "@web/dev-server": "^0.4.6",
     "@web/test-runner": "^0.18.2",
     "concurrently": "^8.2.2",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "husky": "^9.0.11",
+    "jsdom": "^25.0.1",
     "lint-staged": "^15.2.7",
     "prettier": "^3.3.2",
     "tslib": "^2.6.3",
     "tsup": "^8.3.5",
-    "typescript": "^5.5.3"
+    "typescript": "^5.5.3",
+    "vitest": "^2.1.5"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
