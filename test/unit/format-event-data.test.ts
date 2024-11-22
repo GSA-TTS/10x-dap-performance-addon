@@ -1,9 +1,27 @@
-import { expect } from '@open-wc/testing';
-import '../src/format-event-data.js';
+import { it, describe, expect } from 'vitest';
+import { formatEventData } from '../../src/format-event-data.js';
 
 describe('formatEventData', () => {
-  it('Formats LCP entries', () => {
-    expect(true).to.be.true;
+  it('formats LCP data', () => {
+    const lcpAttribution = {
+      url: 'https://localhost/',
+      timeToFirstByte: 100,
+      resourceLoadDelay: 50,
+      resourceLoadDuration: 120,
+      elementRenderDelay: 10,
+      element: 'body>div#main',
+    };
+
+    const result = formatEventData('LCP', lcpAttribution);
+
+    expect(result).toEqual({
+      debug_url: 'https://localhost/',
+      debug_time_to_first_byte: 100,
+      debug_resource_load_delay: 50,
+      debug_resource_load_duration: 120,
+      debug_element_render_delay: 10,
+      debug_target: 'body>div#main',
+    });
   });
 });
 
