@@ -1,3 +1,3 @@
-import { DapPerformanceAddon } from './DapPerformanceAddon.js';
+import { onCLS, onINP, onFCP, onLCP} from 'web-vitals/attribution';
 
-window.customElements.define('dap-performance-addon', DapPerformanceAddon);
+export { onCLS, onINP, onFCP, onLCP };
