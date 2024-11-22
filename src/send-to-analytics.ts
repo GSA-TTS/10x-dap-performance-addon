@@ -1,4 +1,8 @@
-import { formatEventData, type WebVitalsAttribution, type WebVitalsName } from './format-event-data.js';
+import {
+  formatEventData,
+  type WebVitalsAttribution,
+  type WebVitalsName,
+} from './format-event-data.js';
 
 declare const gas4: any;
 
@@ -24,7 +28,7 @@ export const sendToAnalytics = ({
       metric_value: value, // Value for querying in BQ
       metric_delta: delta, // Delta for querying in BQ
       // Send the returned values from getDebugInfo() as custom parameters
-      ...formatEventData((name as WebVitalsName), attribution),
+      ...formatEventData(name as WebVitalsName, attribution),
     });
   }
 };

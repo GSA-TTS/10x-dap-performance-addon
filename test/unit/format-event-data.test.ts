@@ -32,7 +32,7 @@ describe('formatEventData', () => {
       interactionTarget: 'body>button#submit',
       inputDelay: 50,
       processingDuration: 20,
-      presentationDelay: 5
+      presentationDelay: 5,
     };
 
     // @ts-ignore
@@ -45,7 +45,7 @@ describe('formatEventData', () => {
       debug_target: 'body>button#submit',
       debug_interaction_delay: 50,
       debug_processing_duration: 20,
-      debug_presentation_delay: 5
+      debug_presentation_delay: 5,
     });
   });
 
@@ -53,7 +53,7 @@ describe('formatEventData', () => {
     const clsAttribution = {
       largestShiftTime: 1000,
       loadState: 'complete',
-      largestShiftTarget: 'body>div#main'
+      largestShiftTarget: 'body>div#main',
     };
 
     // @ts-ignore
@@ -62,7 +62,7 @@ describe('formatEventData', () => {
     expect(result).toEqual({
       debug_time: 1000,
       debug_load_state: 'complete',
-      debug_target: 'body>div#main'
+      debug_target: 'body>div#main',
     });
   });
 
@@ -71,7 +71,7 @@ describe('formatEventData', () => {
     const result = formatEventData('unknown', null);
 
     expect(result).toEqual({
-      debug_target: '(not set)'
+      debug_target: '(not set)',
     });
   });
 });
@@ -360,7 +360,7 @@ describe('formatEventData', () => {
 //   }
 // }
 
-//{
+// {
 //   "name": "LCP",
 //   "value": 2153,
 //   "rating": "good",
