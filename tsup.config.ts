@@ -9,4 +9,5 @@ export default defineConfig({
   outDir: 'dist',
   globalName: 'dapPerformance',
   clean: true,
+  noExternal: ['web-vitals'],
 });

@@ -1,3 +1,3 @@
-import { onCLS, onFCP, onINP, onLCP } from './dap-performance-addon.js';
+import { onCLS, onFCP, onINP, onLCP } from './web-vitals.js';
 
 export { onCLS, onFCP, onINP, onLCP };
