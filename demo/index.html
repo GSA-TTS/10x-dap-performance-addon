@@ -4,18 +4,32 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <link rel="stylesheet" href="/demo/css/style.css">
-  <script type="module" src="/demo/js/initiate-cls.js"></script>
-  <script type="module">
-    import { onCLS, onFCP, onINP, onLCP } from "../dist/dap-performance-addon.js";
+  <!--
+    The DAP script is loaded async, but the new performance add-on relies on the gas4 function.
+    There are two ways to handle this dependency on the async script. The easiest would be to create a new PR that
+    fires a custom event inside the Universal-Federated-Analytics-Min.js package that other add-ons can listen to.
 
-    onCLS(console.log);
-    onFCP(console.log);
-    onINP(console.log);
-    onLCP(console.log);
+    For now, we're doing this on the inline `onload` attribute for discussion purposes.
+  -->
+  <script async
+          id="_fed_an_ua_tag"
+          src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js"
+          onload="window.dispatchEvent(new CustomEvent('dap-universal-federated-analytics-load'));">
   </script>
+  <script async src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js"></script>
+  <!--
+    This is the new library that would provide the performance collection features. There are some agencies that have
+    their own performance tracking, so the performance add-on is optional and could be its own separate package as it is
+    below.
+  -->
+  <script type="module" src="../dist/dap-performance-addon.js"></script>
 </head>
 <body>
 <main>
+  <!--
+    You can ignore everything below here. All this code below exists for the purpose of intentionally triggering
+    some of the performance-related events for testing purposes.
+  -->
   <h1>
     Demo page
   </h1>
@@ -78,6 +92,7 @@
       </li>
     </ul>
   </template>
+  <script type="module" src="/demo/js/initiate-cls.js"></script>
 </main>
 </body>
 </html>
