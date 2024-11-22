@@ -4,8 +4,8 @@ import type {
   INPAttribution,
 } from 'web-vitals';
 
-type WebVitalsName = 'LCP' | 'INP' | 'CLS';
-type WebVitalsAttribution = LCPAttribution | INPAttribution | CLSAttribution;
+export type WebVitalsName = 'LCP' | 'INP' | 'CLS';
+export type WebVitalsAttribution = LCPAttribution | INPAttribution | CLSAttribution;
 
 export const formatEventData = (
   name: WebVitalsName,
