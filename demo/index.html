@@ -3,28 +3,82 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <style>
-    body {
-      background: #fafafa;
-    }
-  </style>
+  <link rel="stylesheet" href="/demo/css/style.css">
+  <script type="module" src="/demo/js/initiate-cls.js"></script>
+  <script type="module">
+    import { onCLS, onFCP, onINP, onLCP, onTTFB } from '/dist/dap-performance-addon.js';
+
+    onCLS(console.log);
+    onFCP(console.log);
+    onINP(console.log);
+    onLCP(console.log);
+    onTTFB(console.log);
+  </script>
 </head>
 <body>
-  <div id="demo"></div>
-
-  <script type="module">
-    import { html, render } from 'lit';
-    import '../dist/src/dap-performance-addon.js';
-
-    const header = 'Hello owc World!';
-    render(
-      html`
-        <dap-performance-addon .header=${header}>
-          some light-dom
-        </dap-performance-addon>
-      `,
-      document.querySelector('#demo')
-    );
-  </script>
+<main>
+  <h1>
+    Cumulative Layout Shift Example
+  </h1>
+  <div class="article-container">
+    <article>
+      <img src="https://picsum.photos/640/360"
+           srcset="https://picsum.photos/1024/576 1024w, https://picsum.photos/960/540 960w, https://picsum.photos/640/360 640w, https://picsum.photos/480/270 480w"
+           sizes="100vw" alt="" />
+      <p>
+        The browser doesn't know how much space to reserve because there is no height and width attribute on the
+        image, and no height set on the image in CSS. When the page is loaded, the text in this paragraph will
+        shift down considerably after the image is loaded.
+      </p>
+    </article>
+    <div class="sidebar">
+      <div class="related-articles">
+        <h2>
+          Related Articles
+        </h2>
+        <div id="related-articles-root"></div>
+      </div>
+      <p>
+        This paragraph will also shift down when the content in the sidebar is dynamically inserted.
+      </p>
+    </div>
+  </div>
+  <template id="related-articles-template">
+    <ul class="article-list">
+      <li class="article-list__item">
+        <a href="#" class="article-list__link">
+          <div class="article-list__image">
+            <img src="https://picsum.photos/50/50" alt="" width="50" height="50">
+          </div>
+          <div class="article-list__title">
+            <h3>
+              Article title #1
+            </h3>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aspernatur blanditiis
+              dolorum in optio.
+            </p>
+          </div>
+        </a>
+      </li>
+      <li class="article-list__item">
+        <a href="#" class="article-list__link">
+          <div class="article-list__image">
+            <img src="https://picsum.photos/50/50" alt="" width="50" height="50">
+          </div>
+          <div class="article-list__title">
+            <h3>
+              Article title #2
+            </h3>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aspernatur blanditiis
+              dolorum in optio.
+            </p>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </template>
+</main>
 </body>
 </html>
