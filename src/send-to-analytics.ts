@@ -1,8 +1,15 @@
-import {
-  formatEventData,
-  type WebVitalsAttribution,
-  type WebVitalsName,
-} from './format-event-data.js';
+import type {
+  CLSMetricWithAttribution,
+  INPMetricWithAttribution,
+  LCPMetricWithAttribution,
+} from 'web-vitals';
+
+import { formatEventData, type WebVitalsName } from './format-event-data.js';
+
+export type WebVitalsWithAttribution =
+  | CLSMetricWithAttribution
+  | INPMetricWithAttribution
+  | LCPMetricWithAttribution;
 
 declare const gas4: any;
 
@@ -12,13 +19,7 @@ export const sendToAnalytics = ({
   value,
   id,
   attribution,
-}: {
-  name: string;
-  delta: number;
-  value: number;
-  id: string;
-  attribution: WebVitalsAttribution;
-}) => {
+}: WebVitalsWithAttribution) => {
   if (typeof gas4 === 'function') {
     gas4(name, {
       // Built-in params:
