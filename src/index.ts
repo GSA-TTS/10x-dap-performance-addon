@@ -1,16 +1,19 @@
-import { onCLS, onINP, onLCP } from './web-vitals.js';
+import { onCLS, onINP, onFCP, onLCP } from './web-vitals.js';
 import { sendToAnalytics } from './send-to-analytics.js';
 
-if (typeof window !== 'undefined' && 'gas4' in window) {
-  performance.mark('dap-loaded');
+const initWebVitalsEvents = () => {
   onCLS(sendToAnalytics);
+  onFCP(sendToAnalytics);
   onINP(sendToAnalytics);
   onLCP(sendToAnalytics);
+};
+
+if (typeof window !== 'undefined' && 'gas4' in window) {
+  initWebVitalsEvents();
 } else {
   window.addEventListener('dap-universal-federated-analytics-load', () => {
-    performance.mark('dap-loaded');
-    onCLS(sendToAnalytics);
-    onINP(sendToAnalytics);
-    onLCP(sendToAnalytics);
+    initWebVitalsEvents();
   });
 }
+
+performance.mark('dap-performance-addon-loaded');
