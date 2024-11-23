@@ -18,6 +18,7 @@ export const sendToAnalytics = ({
   delta,
   value,
   id,
+  navigationType,
   attribution,
 }: WebVitalsWithAttribution) => {
   if (typeof gas4 === 'function') {
@@ -28,6 +29,7 @@ export const sendToAnalytics = ({
       metric_id: id, // Needed to aggregate events.
       metric_value: value, // Value for querying in BQ
       metric_delta: delta, // Delta for querying in BQ
+      metric_navigation_type: navigationType,
       // Send the returned values from getDebugInfo() as custom parameters
       ...formatEventData(name as WebVitalsName, attribution),
     });
