@@ -1,5 +1,6 @@
 import type {
   CLSMetricWithAttribution,
+  FCPMetricWithAttribution,
   INPMetricWithAttribution,
   LCPMetricWithAttribution,
 } from 'web-vitals';
@@ -8,6 +9,7 @@ import { formatEventData, type WebVitalsName } from './format-event-data.js';
 
 export type WebVitalsWithAttribution =
   | CLSMetricWithAttribution
+  | FCPMetricWithAttribution
   | INPMetricWithAttribution
   | LCPMetricWithAttribution;
 

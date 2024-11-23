@@ -1,14 +1,16 @@
 import type {
-  LCPAttribution,
   CLSAttribution,
+  FCPAttribution,
   INPAttribution,
+  LCPAttribution,
 } from 'web-vitals';
 
-export type WebVitalsName = 'LCP' | 'INP' | 'CLS';
+export type WebVitalsName = 'CLS' | 'FCP' | 'INP' | 'LCP';
 export type WebVitalsAttribution =
-  | LCPAttribution
+  | CLSAttribution
+  | FCPAttribution
   | INPAttribution
-  | CLSAttribution;
+  | LCPAttribution;
 
 export const formatEventData = (
   name: WebVitalsName,
@@ -29,6 +31,13 @@ export const formatEventData = (
         debug_element_render_delay: (attribution as LCPAttribution)
           .elementRenderDelay,
         debug_target: (attribution as LCPAttribution).element || '(not set)',
+      };
+    }
+    if (name === 'FCP') {
+      return {
+        debug_url: (attribution as LCPAttribution).url,
+        debug_time_to_first_byte: (attribution as LCPAttribution)
+          .timeToFirstByte,
       };
     }
     if (name === 'INP') {
