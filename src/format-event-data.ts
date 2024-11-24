@@ -19,24 +19,18 @@ export const formatEventData = (
   // In some cases there won't be any entries (e.g. if CLS is 0,
   // or for LCP after a bfcache restore), so we have to check first.
   if (attribution) {
-    if (name === 'LCP') {
+    if (name === 'CLS') {
       return {
-        debug_url: (attribution as LCPAttribution).url,
-        debug_time_to_first_byte: (attribution as LCPAttribution)
-          .timeToFirstByte,
-        debug_resource_load_delay: (attribution as LCPAttribution)
-          .resourceLoadDelay,
-        debug_resource_load_duration: (attribution as LCPAttribution)
-          .resourceLoadDuration,
-        debug_element_render_delay: (attribution as LCPAttribution)
-          .elementRenderDelay,
-        debug_target: (attribution as LCPAttribution).element || '(not set)',
+        debug_time: (attribution as CLSAttribution).largestShiftTime,
+        debug_load_state: (attribution as CLSAttribution).loadState,
+        debug_target:
+          (attribution as CLSAttribution).largestShiftTarget || '(not set)',
       };
     }
     if (name === 'FCP') {
       return {
-        debug_url: (attribution as LCPAttribution).url,
-        debug_time_to_first_byte: (attribution as LCPAttribution)
+        debug_url: (attribution as FCPAttribution).url,
+        debug_time_to_first_byte: (attribution as FCPAttribution)
           .timeToFirstByte,
       };
     }
@@ -58,12 +52,18 @@ export const formatEventData = (
         ),
       };
     }
-    if (name === 'CLS') {
+    if (name === 'LCP') {
       return {
-        debug_time: (attribution as CLSAttribution).largestShiftTime,
-        debug_load_state: (attribution as CLSAttribution).loadState,
-        debug_target:
-          (attribution as CLSAttribution).largestShiftTarget || '(not set)',
+        debug_url: (attribution as LCPAttribution).url,
+        debug_time_to_first_byte: (attribution as LCPAttribution)
+          .timeToFirstByte,
+        debug_resource_load_delay: (attribution as LCPAttribution)
+          .resourceLoadDelay,
+        debug_resource_load_duration: (attribution as LCPAttribution)
+          .resourceLoadDuration,
+        debug_element_render_delay: (attribution as LCPAttribution)
+          .elementRenderDelay,
+        debug_target: (attribution as LCPAttribution).element || '(not set)',
       };
     }
   }
