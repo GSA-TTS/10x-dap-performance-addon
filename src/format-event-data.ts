@@ -29,9 +29,11 @@ export const formatEventData = (
     }
     if (name === 'FCP') {
       return {
-        debug_url: (attribution as FCPAttribution).url,
         debug_time_to_first_byte: (attribution as FCPAttribution)
           .timeToFirstByte,
+        debug_first_byte_to_fcp: (attribution as FCPAttribution).firstByteToFCP,
+        debug_load_state: (attribution as FCPAttribution).loadState,
+        debug_target: (attribution as FCPAttribution).loadState || '(not set)',
       };
     }
     if (name === 'INP') {
@@ -50,6 +52,7 @@ export const formatEventData = (
         debug_presentation_delay: Math.round(
           (attribution as INPAttribution).presentationDelay,
         ),
+        // TODO: add LoAf attribution here
       };
     }
     if (name === 'LCP') {
