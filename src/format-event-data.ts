@@ -1,14 +1,16 @@
 import type {
-  LCPAttribution,
   CLSAttribution,
+  FCPAttribution,
   INPAttribution,
+  LCPAttribution,
 } from 'web-vitals';
 
-export type WebVitalsName = 'LCP' | 'INP' | 'CLS';
+export type WebVitalsName = 'CLS' | 'FCP' | 'INP' | 'LCP';
 export type WebVitalsAttribution =
-  | LCPAttribution
+  | CLSAttribution
+  | FCPAttribution
   | INPAttribution
-  | CLSAttribution;
+  | LCPAttribution;
 
 export const formatEventData = (
   name: WebVitalsName,
@@ -17,18 +19,21 @@ export const formatEventData = (
   // In some cases there won't be any entries (e.g. if CLS is 0,
   // or for LCP after a bfcache restore), so we have to check first.
   if (attribution) {
-    if (name === 'LCP') {
+    if (name === 'CLS') {
       return {
-        debug_url: (attribution as LCPAttribution).url,
-        debug_time_to_first_byte: (attribution as LCPAttribution)
+        debug_time: (attribution as CLSAttribution).largestShiftTime,
+        debug_load_state: (attribution as CLSAttribution).loadState,
+        debug_target:
+          (attribution as CLSAttribution).largestShiftTarget || '(not set)',
+      };
+    }
+    if (name === 'FCP') {
+      return {
+        debug_time_to_first_byte: (attribution as FCPAttribution)
           .timeToFirstByte,
-        debug_resource_load_delay: (attribution as LCPAttribution)
-          .resourceLoadDelay,
-        debug_resource_load_duration: (attribution as LCPAttribution)
-          .resourceLoadDuration,
-        debug_element_render_delay: (attribution as LCPAttribution)
-          .elementRenderDelay,
-        debug_target: (attribution as LCPAttribution).element || '(not set)',
+        debug_first_byte_to_fcp: (attribution as FCPAttribution).firstByteToFCP,
+        debug_load_state: (attribution as FCPAttribution).loadState,
+        debug_target: (attribution as FCPAttribution).loadState || '(not set)',
       };
     }
     if (name === 'INP') {
@@ -47,14 +52,21 @@ export const formatEventData = (
         debug_presentation_delay: Math.round(
           (attribution as INPAttribution).presentationDelay,
         ),
+        // TODO: add LoAf attribution here
       };
     }
-    if (name === 'CLS') {
+    if (name === 'LCP') {
       return {
-        debug_time: (attribution as CLSAttribution).largestShiftTime,
-        debug_load_state: (attribution as CLSAttribution).loadState,
-        debug_target:
-          (attribution as CLSAttribution).largestShiftTarget || '(not set)',
+        debug_url: (attribution as LCPAttribution).url,
+        debug_time_to_first_byte: (attribution as LCPAttribution)
+          .timeToFirstByte,
+        debug_resource_load_delay: (attribution as LCPAttribution)
+          .resourceLoadDelay,
+        debug_resource_load_duration: (attribution as LCPAttribution)
+          .resourceLoadDuration,
+        debug_element_render_delay: (attribution as LCPAttribution)
+          .elementRenderDelay,
+        debug_target: (attribution as LCPAttribution).element || '(not set)',
       };
     }
   }

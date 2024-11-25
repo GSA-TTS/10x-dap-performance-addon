@@ -2,8 +2,43 @@ import { it, describe, expect } from 'vitest';
 import { formatEventData } from '../../src/format-event-data.js';
 
 describe('formatEventData', () => {
+  it('should format CLS data correctly', () => {
+    const attribution = {
+      largestShiftTime: 1000,
+      loadState: 'complete',
+      largestShiftTarget: 'body>div#main',
+    };
+
+    // @ts-ignore
+    const result = formatEventData('CLS', attribution);
+
+    expect(result).toEqual({
+      debug_time: attribution.largestShiftTime,
+      debug_load_state: attribution.loadState,
+      debug_target: attribution.largestShiftTarget,
+    });
+  });
+
+  it('should format FCP data correctly', () => {
+    const attribution = {
+      timeToFirstByte: 7.199999999254942,
+      firstByteToFCP: 456.9000000022352,
+      loadState: 'dom-interactive',
+    };
+
+    // @ts-ignore
+    const result = formatEventData('FCP', attribution);
+
+    expect(result).toEqual({
+      debug_time_to_first_byte: attribution.timeToFirstByte,
+      debug_first_byte_to_fcp: attribution.firstByteToFCP,
+      debug_load_state: attribution.loadState,
+      debug_target: attribution.loadState,
+    });
+  });
+
   it('should format LCP data correctly', () => {
-    const lcpAttribution = {
+    const attribution = {
       url: 'https://localhost/',
       timeToFirstByte: 100,
       resourceLoadDelay: 50,
@@ -12,20 +47,20 @@ describe('formatEventData', () => {
       element: 'body>div#main',
     };
 
-    const result = formatEventData('LCP', lcpAttribution);
+    const result = formatEventData('LCP', attribution);
 
     expect(result).toEqual({
-      debug_url: 'https://localhost/',
-      debug_time_to_first_byte: 100,
-      debug_resource_load_delay: 50,
-      debug_resource_load_duration: 120,
-      debug_element_render_delay: 10,
-      debug_target: 'body>div#main',
+      debug_url: attribution.url,
+      debug_time_to_first_byte: attribution.timeToFirstByte,
+      debug_resource_load_delay: attribution.resourceLoadDelay,
+      debug_resource_load_duration: attribution.resourceLoadDuration,
+      debug_element_render_delay: attribution.elementRenderDelay,
+      debug_target: attribution.element,
     });
   });
 
   it('should format INP data correctly', () => {
-    const inpAttribution = {
+    const attribution = {
       interactionType: 'mousedown',
       interactionTime: 1000,
       loadState: 'interactive',
@@ -36,33 +71,16 @@ describe('formatEventData', () => {
     };
 
     // @ts-ignore
-    const result = formatEventData('INP', inpAttribution);
+    const result = formatEventData('INP', attribution);
 
     expect(result).toEqual({
-      debug_event: 'mousedown',
-      debug_time: 1000,
-      debug_load_state: 'interactive',
-      debug_target: 'body>button#submit',
-      debug_interaction_delay: 50,
-      debug_processing_duration: 20,
-      debug_presentation_delay: 5,
-    });
-  });
-
-  it('should format CLS data correctly', () => {
-    const clsAttribution = {
-      largestShiftTime: 1000,
-      loadState: 'complete',
-      largestShiftTarget: 'body>div#main',
-    };
-
-    // @ts-ignore
-    const result = formatEventData('CLS', clsAttribution);
-
-    expect(result).toEqual({
-      debug_time: 1000,
-      debug_load_state: 'complete',
-      debug_target: 'body>div#main',
+      debug_event: attribution.interactionType,
+      debug_time: attribution.interactionTime,
+      debug_load_state: attribution.loadState,
+      debug_target: attribution.interactionTarget,
+      debug_interaction_delay: attribution.inputDelay,
+      debug_processing_duration: attribution.processingDuration,
+      debug_presentation_delay: attribution.presentationDelay,
     });
   });
 
