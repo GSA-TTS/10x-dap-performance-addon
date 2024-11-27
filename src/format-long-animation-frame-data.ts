@@ -1,42 +1,31 @@
 import type { INPAttribution } from 'web-vitals';
 
-// export const formatLongAnimationFrameData = (attribution: INPAttribution) => {
-//
-// };
-
-// export const formatLongAnimationFrameData = (attribution: INPAttribution) => {
-//   // The last LoAF entry is usually the most relevant.
-//   const loaf = attribution.longAnimationFrameEntries.at(-1);
-//   const script = loaf?.scripts.sort((a, b) => b.duration - a.duration)[0];
-//   let obj = {}
-//
-//   if(script) {
-//     // long event handler
-//     const { invokerType } = script; // always event-listener for long event handlers
-//     const { invoker } = script; // element that had the event listener
-//     const { sourceURL } = script;
-//     const { sourceCharPosition } = script;
-//     const { sourceFunctionName } = script;
-//
-//     // long input delay: during page load - was this from script evaluation
-//     const { invokerType } = script; //
-//     const { sourceLocation } = script;
-//
-//     // long input delay: after page load - was this from script evaluation
-//     const { invokerType } = script; // user-callback (recurring timer like setInterval), event-listener, module-script, classic-script. Could also be expensive fetch call
-//     const { sourceURL } = script; // https://example.com/app.js
-//     const { sourceCharPosition } = script; // 83
-//     const { sourceFunctionName } = script; // update
-//
-//     // presentation delay
-//     const { invokerType } = script; // user-callback (recurring timer like setInterval), event-listener, module-script, classic-script. Could also be expensive fetch call
-//     const { sourceURL } = script; // https://example.com/app.js
-//     const { sourceCharPosition } = script; // 83
-//     const { sourceFunctionName } = script; // update
-//   }
-// }
-
-
+/**
+ * Properties of note
+ *
+ * // Long-running event handler would be like the below:
+ * const { invokerType } = script; // always event-listener for long event handlers
+ * const { invoker } = script; // element that had the event listener
+ * const { sourceURL } = script; // https://example.com/app.js
+ * const { sourceCharPosition } = script; // 83
+ * const { sourceFunctionName } = script; // update
+ *
+ * // long input delay: during page load - was this from script evaluation?
+ * const { invokerType } = script;
+ * const { sourceLocation } = script;
+ *
+ * // long input delay: after page load
+ * const { invokerType } = script; // user-callback (recurring timer like setInterval), event-listener, module-script, classic-script. Could also be expensive fetch call
+ * const { sourceURL } = script; // https://example.com/app.js
+ * const { sourceCharPosition } = script; // 83
+ * const { sourceFunctionName } = script; // update
+ *
+ * // presentation delay
+ * const { invokerType } = script; // user-callback (recurring timer like setInterval), event-listener, module-script, classic-script. Could also be expensive fetch call
+ * const { sourceURL } = script; // https://example.com/app.js
+ * const { sourceCharPosition } = script; // 83
+ * const { sourceFunctionName } = script; // update
+ */
 export const formatLongAnimationFrameData = (attribution: INPAttribution) => {
   const loafEntries = attribution.longAnimationFrameEntries;
   if(typeof loafEntries === 'undefined' || loafEntries.length === 0) {
@@ -87,7 +76,7 @@ export const formatLongAnimationFrameData = (attribution: INPAttribution) => {
   }
 
   // The LoAF script with the single longest total duration.
-  return Object.fromEntries(Object.entries(loafAttribution).map(([k, v]) => 
+  return Object.fromEntries(Object.entries(loafAttribution).map(([k, v]) =>
     // Convert all floats to ints.
      [k, typeof v === 'number' ? Math.floor(v) : v]
   ));
