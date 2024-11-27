@@ -5,6 +5,7 @@ const initWebVitalsEvents = () => {
   onCLS(sendToAnalytics);
   onFCP(sendToAnalytics);
   onINP(sendToAnalytics);
+  onINP(console.log);
   onLCP(sendToAnalytics);
 };
 

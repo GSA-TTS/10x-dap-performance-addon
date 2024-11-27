@@ -23,6 +23,30 @@
     below.
   -->
   <script type="module" src="../dist/dap-performance-addon.js"></script>
+  <script type="module">
+    const button = document.querySelector('#thrash-layout');
+    button.addEventListener('click', () => {
+      const elem = document.querySelector('#thrash-element-1');
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < 1000; i++) {
+        // Read height (this forces layout recalculation)
+        const height = elem.offsetHeight;
+        // Write width (this marks layout as dirty)
+        elem.style.width = `${height + 1}px`;
+      }
+      elem.removeAttribute('style');
+    });
+
+    button.addEventListener('click', () => {
+      const elem = document.querySelector('#thrash-element-2');
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < 1000; i++) {
+        const height = elem.offsetHeight;
+        elem.style.width = `${height + 1}px`;
+      }
+      elem.removeAttribute('style');
+    });
+  </script>
 </head>
 <body>
 <main>
@@ -33,7 +57,10 @@
   <h1>
     Demo page
   </h1>
-  <div class="article-container">
+  <p>
+    <button id="thrash-layout">This button will cause layout thrashing</button>
+  </p>
+  <div class="article-container" id="thrash-element-1">
     <article>
       <img src="https://picsum.photos/640/360"
            srcset="https://picsum.photos/1024/576 1024w, https://picsum.photos/960/540 960w, https://picsum.photos/640/360 640w, https://picsum.photos/480/270 480w"
@@ -44,7 +71,7 @@
         shift down considerably after the image is loaded.
       </p>
     </article>
-    <div class="sidebar">
+    <div class="sidebar" id="thrash-element-2">
       <div class="related-articles">
         <h2>
           Related Articles
