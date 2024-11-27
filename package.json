@@ -24,7 +24,6 @@
     "test:coverage": "vitest --coverage"
   },
   "dependencies": {
-    "lit": "^3.2.1",
     "web-vitals": "^4.2.4"
   },
   "devDependencies": {
