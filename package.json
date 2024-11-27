@@ -13,7 +13,7 @@
     "./dap-performance-addon.js": "./dist/dap-performance-addon.js"
   },
   "scripts": {
-    "analyze": "cem analyze --litelement",
+    "analyze": "",
     "start": "tsup && concurrently -k -r \"tsup --watch\" \"web-dev-server\"",
     "build": "tsup",
     "prepublish": "tsup && npm run analyze -- --exclude dist",
@@ -25,15 +25,14 @@
     "test:coverage": "vitest --coverage"
   },
   "dependencies": {
-    "lit": "^3.1.4",
     "web-vitals": "^4.2.4"
   },
   "devDependencies": {
     "@open-wc/eslint-config": "^12.0.3",
     "@open-wc/testing": "^4.0.0",
     "@types/mocha": "^10.0.7",
-    "@typescript-eslint/eslint-plugin": "^7.16.0",
-    "@typescript-eslint/parser": "^7.16.0",
+    "@typescript-eslint/eslint-plugin": "^8.16.0",
+    "@typescript-eslint/parser": "^8.16.0",
     "@vitest/coverage-v8": "^2.1.5",
     "@web/dev-server": "^0.4.6",
     "@web/test-runner": "^0.18.2",
