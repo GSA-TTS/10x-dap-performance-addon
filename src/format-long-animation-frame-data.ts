@@ -64,6 +64,8 @@ export const formatLongAnimationFrameData = (attribution: INPAttribution) => {
         debug_loaf_script_source_url: script.sourceURL,
         debug_loaf_script_source_function_name: script.sourceFunctionName,
         debug_loaf_script_source_char_position: script.sourceCharPosition,
+        debug_loaf_pause_duration: script.pauseDuration,
+        debug_loaf_window_attribution: script.windowAttribution,
 
         // LoAF metadata.
         debug_loaf_meta_length: loafEntries.length,

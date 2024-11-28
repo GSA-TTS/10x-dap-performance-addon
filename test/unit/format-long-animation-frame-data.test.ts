@@ -47,6 +47,7 @@ describe('formatLongAnimationFrameData', () => {
       "debug_loaf_entry_total_forced_style_and_layout_duration": 80,
       "debug_loaf_entry_work_duration": 88,
       "debug_loaf_meta_length": 1,
+      "debug_loaf_pause_duration": 0,
       "debug_loaf_script_compile_duration": 0,
       "debug_loaf_script_exec_duration": 85,
       "debug_loaf_script_forced_style_and_layout_duration": 80,
@@ -56,6 +57,7 @@ describe('formatLongAnimationFrameData', () => {
       "debug_loaf_script_source_url": "http://localhost:8000/demo/",
       "debug_loaf_script_total_duration": 85,
       "debug_loaf_script_type": "event-listener",
+      "debug_loaf_window_attribution": "self",
     });
   });
 
@@ -119,6 +121,7 @@ describe('formatLongAnimationFrameData', () => {
       "debug_loaf_entry_total_forced_style_and_layout_duration": 0,
       "debug_loaf_entry_work_duration": 334,
       "debug_loaf_meta_length": 1,
+      "debug_loaf_pause_duration": 0,
       "debug_loaf_script_compile_duration": 0,
       "debug_loaf_script_exec_duration": 222,
       "debug_loaf_script_forced_style_and_layout_duration": 0,
@@ -128,6 +131,7 @@ describe('formatLongAnimationFrameData', () => {
       "debug_loaf_script_source_url": "http://localhost:8000/demo/",
       "debug_loaf_script_total_duration": 222,
       "debug_loaf_script_type": "user-callback",
+      "debug_loaf_window_attribution": "self",
     });
   });
 
