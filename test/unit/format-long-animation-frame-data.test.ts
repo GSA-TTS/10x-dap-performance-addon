@@ -4,34 +4,34 @@ import { formatLongAnimationFrameData } from '../../src/format-long-animation-fr
 describe('formatLongAnimationFrameData', () => {
   it('should format INP data correctly', () => {
     const attribution = {
-      "longAnimationFrameEntries": [
+      longAnimationFrameEntries: [
         {
-          "name": "long-animation-frame",
-          "entryType": "long-animation-frame",
-          "startTime": 5168847.600000024,
-          "duration": 90,
-          "renderStart": 5168936.1999999285,
-          "styleAndLayoutStart": 5168936.1999999285,
-          "firstUIEventTimestamp": 5168847,
-          "blockingDuration": 38,
-          "scripts": [
+          name: 'long-animation-frame',
+          entryType: 'long-animation-frame',
+          startTime: 5168847.600000024,
+          duration: 90,
+          renderStart: 5168936.1999999285,
+          styleAndLayoutStart: 5168936.1999999285,
+          firstUIEventTimestamp: 5168847,
+          blockingDuration: 38,
+          scripts: [
             {
-              "name": "script",
-              "entryType": "script",
-              "startTime": 5168847.899999976,
-              "duration": 85,
-              "invoker": "BUTTON#thrash-layout.onclick",
-              "invokerType": "event-listener",
-              "windowAttribution": "self",
-              "executionStart": 5168847.899999976,
-              "forcedStyleAndLayoutDuration": 80,
-              "pauseDuration": 0,
-              "sourceURL": "http://localhost:8000/demo/",
-              "sourceFunctionName": "",
-              "sourceCharPosition": 72
-            }
-          ]
-        }
+              name: 'script',
+              entryType: 'script',
+              startTime: 5168847.899999976,
+              duration: 85,
+              invoker: 'BUTTON#thrash-layout.onclick',
+              invokerType: 'event-listener',
+              windowAttribution: 'self',
+              executionStart: 5168847.899999976,
+              forcedStyleAndLayoutDuration: 80,
+              pauseDuration: 0,
+              sourceURL: 'http://localhost:8000/demo/',
+              sourceFunctionName: '',
+              sourceCharPosition: 72,
+            },
+          ],
+        },
       ],
     };
 
@@ -39,127 +39,127 @@ describe('formatLongAnimationFrameData', () => {
     const result = formatLongAnimationFrameData(attribution);
 
     expect(result).toEqual({
-      "debug_loaf_entry_end_time": 5168937,
-      "debug_loaf_entry_pre_layout_duration": 0,
-      "debug_loaf_entry_render_duration": 1,
-      "debug_loaf_entry_start_time": 5168847,
-      "debug_loaf_entry_style_and_layout_duration": 1,
-      "debug_loaf_entry_total_forced_style_and_layout_duration": 80,
-      "debug_loaf_entry_work_duration": 88,
-      "debug_loaf_meta_length": 1,
-      "debug_loaf_pause_duration": 0,
-      "debug_loaf_script_compile_duration": 0,
-      "debug_loaf_script_exec_duration": 85,
-      "debug_loaf_script_forced_style_and_layout_duration": 80,
-      "debug_loaf_script_invoker": "BUTTON#thrash-layout.onclick",
-      "debug_loaf_script_source_char_position": 72,
-      "debug_loaf_script_source_function_name": "",
-      "debug_loaf_script_source_url": "http://localhost:8000/demo/",
-      "debug_loaf_script_total_duration": 85,
-      "debug_loaf_script_type": "event-listener",
-      "debug_loaf_window_attribution": "self",
+      debug_loaf_entry_end_time: 5168937,
+      debug_loaf_entry_pre_layout_duration: 0,
+      debug_loaf_entry_render_duration: 1,
+      debug_loaf_entry_start_time: 5168847,
+      debug_loaf_entry_style_and_layout_duration: 1,
+      debug_loaf_entry_total_forced_style_and_layout_duration: 80,
+      debug_loaf_entry_work_duration: 88,
+      debug_loaf_meta_length: 1,
+      debug_loaf_pause_duration: 0,
+      debug_loaf_script_compile_duration: 0,
+      debug_loaf_script_exec_duration: 85,
+      debug_loaf_script_forced_style_and_layout_duration: 80,
+      debug_loaf_script_invoker: 'BUTTON#thrash-layout.onclick',
+      debug_loaf_script_source_char_position: 72,
+      debug_loaf_script_source_function_name: '',
+      debug_loaf_script_source_url: 'http://localhost:8000/demo/',
+      debug_loaf_script_total_duration: 85,
+      debug_loaf_script_type: 'event-listener',
+      debug_loaf_window_attribution: 'self',
     });
   });
 
   it('should handle multiple scripts by giving info about the single longest total duration.', () => {
     const attribution = {
-      "longAnimationFrameEntries": [
+      longAnimationFrameEntries: [
         {
-          "name": "long-animation-frame",
-          "entryType": "long-animation-frame",
-          "startTime": 49367.80000001192,
-          "duration": 335,
-          "renderStart": 49702.19999998808,
-          "styleAndLayoutStart": 49702.69999998808,
-          "firstUIEventTimestamp": 49387.80000001192,
-          "blockingDuration": 235,
-          "scripts": [
+          name: 'long-animation-frame',
+          entryType: 'long-animation-frame',
+          startTime: 49367.80000001192,
+          duration: 335,
+          renderStart: 49702.19999998808,
+          styleAndLayoutStart: 49702.69999998808,
+          firstUIEventTimestamp: 49387.80000001192,
+          blockingDuration: 235,
+          scripts: [
             {
-              "name": "script",
-              "entryType": "script",
-              "startTime": 49367.89999997616,
-              "duration": 222,
-              "invoker": "TimerHandler:setTimeout",
-              "invokerType": "user-callback",
-              "windowAttribution": "self",
-              "executionStart": 49367.89999997616,
-              "forcedStyleAndLayoutDuration": 0,
-              "pauseDuration": 0,
-              "sourceURL": "http://localhost:8000/demo/",
-              "sourceFunctionName": "periodicBlock",
-              "sourceCharPosition": 2007
+              name: 'script',
+              entryType: 'script',
+              startTime: 49367.89999997616,
+              duration: 222,
+              invoker: 'TimerHandler:setTimeout',
+              invokerType: 'user-callback',
+              windowAttribution: 'self',
+              executionStart: 49367.89999997616,
+              forcedStyleAndLayoutDuration: 0,
+              pauseDuration: 0,
+              sourceURL: 'http://localhost:8000/demo/',
+              sourceFunctionName: 'periodicBlock',
+              sourceCharPosition: 2007,
             },
             {
-              "name": "script",
-              "entryType": "script",
-              "startTime": 49590.89999997616,
-              "duration": 14,
-              "invoker": "DOMWindow.onkeydown",
-              "invokerType": "event-listener",
-              "windowAttribution": "self",
-              "executionStart": 49590.89999997616,
-              "forcedStyleAndLayoutDuration": 0,
-              "pauseDuration": 0,
-              "sourceURL": "http://localhost:8000/demo/",
-              "sourceFunctionName": "",
-              "sourceCharPosition": 4656
-            }
-          ]
-        }
+              name: 'script',
+              entryType: 'script',
+              startTime: 49590.89999997616,
+              duration: 14,
+              invoker: 'DOMWindow.onkeydown',
+              invokerType: 'event-listener',
+              windowAttribution: 'self',
+              executionStart: 49590.89999997616,
+              forcedStyleAndLayoutDuration: 0,
+              pauseDuration: 0,
+              sourceURL: 'http://localhost:8000/demo/',
+              sourceFunctionName: '',
+              sourceCharPosition: 4656,
+            },
+          ],
+        },
       ],
-    }
+    };
 
     // @ts-ignore
     const result = formatLongAnimationFrameData(attribution);
 
     expect(result).toEqual({
-      "debug_loaf_entry_end_time": 49702,
-      "debug_loaf_entry_pre_layout_duration": 0,
-      "debug_loaf_entry_render_duration": 0,
-      "debug_loaf_entry_start_time": 49367,
-      "debug_loaf_entry_style_and_layout_duration": 0,
-      "debug_loaf_entry_total_forced_style_and_layout_duration": 0,
-      "debug_loaf_entry_work_duration": 334,
-      "debug_loaf_meta_length": 1,
-      "debug_loaf_pause_duration": 0,
-      "debug_loaf_script_compile_duration": 0,
-      "debug_loaf_script_exec_duration": 222,
-      "debug_loaf_script_forced_style_and_layout_duration": 0,
-      "debug_loaf_script_invoker": "TimerHandler:setTimeout",
-      "debug_loaf_script_source_char_position": 2007,
-      "debug_loaf_script_source_function_name": "periodicBlock",
-      "debug_loaf_script_source_url": "http://localhost:8000/demo/",
-      "debug_loaf_script_total_duration": 222,
-      "debug_loaf_script_type": "user-callback",
-      "debug_loaf_window_attribution": "self",
+      debug_loaf_entry_end_time: 49702,
+      debug_loaf_entry_pre_layout_duration: 0,
+      debug_loaf_entry_render_duration: 0,
+      debug_loaf_entry_start_time: 49367,
+      debug_loaf_entry_style_and_layout_duration: 0,
+      debug_loaf_entry_total_forced_style_and_layout_duration: 0,
+      debug_loaf_entry_work_duration: 334,
+      debug_loaf_meta_length: 1,
+      debug_loaf_pause_duration: 0,
+      debug_loaf_script_compile_duration: 0,
+      debug_loaf_script_exec_duration: 222,
+      debug_loaf_script_forced_style_and_layout_duration: 0,
+      debug_loaf_script_invoker: 'TimerHandler:setTimeout',
+      debug_loaf_script_source_char_position: 2007,
+      debug_loaf_script_source_function_name: 'periodicBlock',
+      debug_loaf_script_source_url: 'http://localhost:8000/demo/',
+      debug_loaf_script_total_duration: 222,
+      debug_loaf_script_type: 'user-callback',
+      debug_loaf_window_attribution: 'self',
     });
   });
 
   it('should handle attribution data with zero scripts', () => {
     const attribution = {
-      "interactionTarget": "#textarea",
-      "interactionTargetElement": {},
-      "interactionType": "keyboard",
-      "interactionTime": 49387.80000001192,
-      "nextPaintTime": 49715.80000001192,
-      "longAnimationFrameEntries": [
+      interactionTarget: '#textarea',
+      interactionTargetElement: {},
+      interactionType: 'keyboard',
+      interactionTime: 49387.80000001192,
+      nextPaintTime: 49715.80000001192,
+      longAnimationFrameEntries: [
         {
-          "name": "long-animation-frame",
-          "entryType": "long-animation-frame",
-          "startTime": 49367.80000001192,
-          "duration": 335,
-          "renderStart": 49702.19999998808,
-          "styleAndLayoutStart": 49702.69999998808,
-          "firstUIEventTimestamp": 49387.80000001192,
-          "blockingDuration": 235,
-          "scripts": []
-        }
+          name: 'long-animation-frame',
+          entryType: 'long-animation-frame',
+          startTime: 49367.80000001192,
+          duration: 335,
+          renderStart: 49702.19999998808,
+          styleAndLayoutStart: 49702.69999998808,
+          firstUIEventTimestamp: 49387.80000001192,
+          blockingDuration: 235,
+          scripts: [],
+        },
       ],
-      "inputDelay": 203.0999999642372,
-      "processingDuration": 111.30000001192093,
-      "presentationDelay": 13.600000023841858,
-      "loadState": "complete"
-    }
+      inputDelay: 203.0999999642372,
+      processingDuration: 111.30000001192093,
+      presentationDelay: 13.600000023841858,
+      loadState: 'complete',
+    };
 
     // @ts-ignore
     const result = formatLongAnimationFrameData(attribution);
