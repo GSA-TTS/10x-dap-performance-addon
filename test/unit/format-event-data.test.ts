@@ -82,12 +82,12 @@ describe('formatEventData', () => {
 
     expect(result).toEqual({
       debug_event: attribution.interactionType,
-      debug_time: attribution.interactionTime,
+      debug_time: Math.round(attribution.interactionTime),
       debug_load_state: attribution.loadState,
       debug_target: attribution.interactionTarget,
-      debug_interaction_delay: attribution.inputDelay,
-      debug_processing_duration: attribution.processingDuration,
-      debug_presentation_delay: attribution.presentationDelay,
+      debug_interaction_delay: Math.round(attribution.inputDelay),
+      debug_processing_duration: Math.round(attribution.processingDuration),
+      debug_presentation_delay: Math.round(attribution.presentationDelay),
     });
   });
 
