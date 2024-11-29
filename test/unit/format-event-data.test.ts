@@ -1,5 +1,11 @@
 import { it, describe, expect } from 'vitest';
 import { formatEventData } from '../../src/format-event-data.js';
+import type {
+  CLSAttribution,
+  FCPAttribution,
+  INPAttribution,
+  LCPAttribution,
+} from 'web-vitals';
 
 describe('formatEventData', () => {
   it('should format CLS data correctly', () => {
@@ -7,9 +13,8 @@ describe('formatEventData', () => {
       largestShiftTime: 1000,
       loadState: 'complete',
       largestShiftTarget: 'body>div#main',
-    };
+    } satisfies CLSAttribution;
 
-    // @ts-ignore
     const result = formatEventData('CLS', attribution);
 
     expect(result).toEqual({
@@ -24,9 +29,8 @@ describe('formatEventData', () => {
       timeToFirstByte: 7.199999999254942,
       firstByteToFCP: 456.9000000022352,
       loadState: 'dom-interactive',
-    };
+    } satisfies FCPAttribution;
 
-    // @ts-ignore
     const result = formatEventData('FCP', attribution);
 
     expect(result).toEqual({
@@ -45,7 +49,7 @@ describe('formatEventData', () => {
       resourceLoadDuration: 120,
       elementRenderDelay: 10,
       element: 'body>div#main',
-    };
+    } satisfies LCPAttribution;
 
     const result = formatEventData('LCP', attribution);
 
@@ -61,16 +65,19 @@ describe('formatEventData', () => {
 
   it('should format INP data correctly', () => {
     const attribution = {
-      interactionType: 'mousedown',
-      interactionTime: 1000,
-      loadState: 'interactive',
-      interactionTarget: 'body>button#submit',
-      inputDelay: 50,
-      processingDuration: 20,
-      presentationDelay: 5,
-    };
+      interactionTarget: 'html>body',
+      interactionTargetElement: undefined,
+      interactionType: 'keyboard',
+      interactionTime: 235.5,
+      nextPaintTime: 435.5,
+      processedEventEntries: [],
+      longAnimationFrameEntries: [],
+      inputDelay: 0.5,
+      processingDuration: 93,
+      presentationDelay: 106.5,
+      loadState: 'dom-interactive',
+    } satisfies INPAttribution;
 
-    // @ts-ignore
     const result = formatEventData('INP', attribution);
 
     expect(result).toEqual({
@@ -85,7 +92,7 @@ describe('formatEventData', () => {
   });
 
   it('should return default/empty params if no attribution data is provided', () => {
-    // @ts-ignore
+    // @ts-expect-error - unknown is not valid
     const result = formatEventData('unknown', null);
 
     expect(result).toEqual({

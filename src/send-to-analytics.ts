@@ -13,7 +13,7 @@ export type WebVitalsWithAttribution =
   | INPMetricWithAttribution
   | LCPMetricWithAttribution;
 
-declare const gas4: any;
+declare const gas4: unknown;
 
 export const sendToAnalytics = ({
   name,

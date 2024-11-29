@@ -16,8 +16,8 @@
     "start": "tsup && concurrently -k -r \"tsup --watch\" \"web-dev-server\"",
     "build": "tsup",
     "prepublish": "tsup",
-    "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
-    "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
+    "lint": "eslint && prettier \"**/*.ts\" --check --ignore-path .gitignore",
+    "format": "eslint . --fix && prettier \"**/*.ts\" --write --ignore-path .gitignore",
     "prepare": "husky",
     "test": "vitest",
     "test:watch": "vitest --watch",
@@ -28,17 +28,16 @@
     "web-vitals": "^4.2.4"
   },
   "devDependencies": {
-    "@open-wc/eslint-config": "^12.0.3",
-    "@open-wc/testing": "^4.0.0",
+    "@eslint/js": "^9.16.0",
     "@types/mocha": "^10.0.10",
-    "@typescript-eslint/eslint-plugin": "^8.16.0",
-    "@typescript-eslint/parser": "^8.16.0",
     "@vitest/coverage-v8": "^2.1.6",
     "@web/dev-server": "^0.4.6",
     "@web/test-runner": "^0.19.0",
     "concurrently": "^9.1.0",
-    "eslint": "^9.15.0",
+    "eslint": "^9.16.0",
     "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "globals": "^15.12.0",
     "husky": "^9.1.7",
     "jsdom": "^25.0.1",
     "lint-staged": "^15.2.10",
@@ -46,31 +45,8 @@
     "tslib": "^2.8.1",
     "tsup": "^8.3.5",
     "typescript": "^5.7.2",
+    "typescript-eslint": "^8.16.0",
     "vitest": "^2.1.6"
-  },
-  "eslintConfig": {
-    "parser": "@typescript-eslint/parser",
-    "extends": [
-      "@open-wc",
-      "prettier"
-    ],
-    "plugins": [
-      "@typescript-eslint"
-    ],
-    "rules": {
-      "no-unused-vars": "off",
-      "@typescript-eslint/no-unused-vars": [
-        "error"
-      ],
-      "import/no-unresolved": "off",
-      "import/extensions": [
-        "error",
-        "always",
-        {
-          "ignorePackages": true
-        }
-      ]
-    }
   },
   "prettier": {
     "singleQuote": true,
