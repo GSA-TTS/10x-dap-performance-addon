@@ -3,14 +3,16 @@ import type {
   FCPAttribution,
   INPAttribution,
   LCPAttribution,
+  TTFBAttribution,
 } from 'web-vitals';
 
-export type WebVitalsName = 'CLS' | 'FCP' | 'INP' | 'LCP';
+export type WebVitalsName = 'CLS' | 'FCP' | 'INP' | 'LCP' | 'TTFB';
 export type WebVitalsAttribution =
   | CLSAttribution
   | FCPAttribution
   | INPAttribution
-  | LCPAttribution;
+  | LCPAttribution
+  | TTFBAttribution;
 
 export const formatEventData = (
   name: WebVitalsName,
@@ -67,6 +69,18 @@ export const formatEventData = (
         debug_element_render_delay: (attribution as LCPAttribution)
           .elementRenderDelay,
         debug_target: (attribution as LCPAttribution).element || '(not set)',
+      };
+    }
+    if (name === 'TTFB') {
+      return {
+        debug_waiting_duration: (attribution as TTFBAttribution)
+          .waitingDuration,
+        debug_dns_duration: (attribution as TTFBAttribution).dnsDuration,
+        debug_connection_duration: (attribution as TTFBAttribution)
+          .connectionDuration,
+        debug_cache_duration: (attribution as TTFBAttribution).cacheDuration,
+        debug_request_duration: (attribution as TTFBAttribution)
+          .requestDuration,
       };
     }
   }

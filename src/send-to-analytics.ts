@@ -3,6 +3,7 @@ import type {
   FCPMetricWithAttribution,
   INPMetricWithAttribution,
   LCPMetricWithAttribution,
+  TTFBMetricWithAttribution,
 } from 'web-vitals';
 
 import { formatEventData, type WebVitalsName } from './format-event-data.js';
@@ -11,7 +12,8 @@ export type WebVitalsWithAttribution =
   | CLSMetricWithAttribution
   | FCPMetricWithAttribution
   | INPMetricWithAttribution
-  | LCPMetricWithAttribution;
+  | LCPMetricWithAttribution
+  | TTFBMetricWithAttribution;
 
 declare const gas4: any;
 
