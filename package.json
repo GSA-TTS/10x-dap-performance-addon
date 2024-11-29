@@ -13,10 +13,9 @@
     "./dap-performance-addon.js": "./dist/dap-performance-addon.js"
   },
   "scripts": {
-    "analyze": "cem analyze --litelement",
     "start": "tsup && concurrently -k -r \"tsup --watch\" \"web-dev-server\"",
     "build": "tsup",
-    "prepublish": "tsup && npm run analyze -- --exclude dist",
+    "prepublish": "tsup",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
     "prepare": "husky",
@@ -25,29 +24,29 @@
     "test:coverage": "vitest --coverage"
   },
   "dependencies": {
-    "lit": "^3.1.4",
+    "lit": "^3.2.1",
     "web-vitals": "^4.2.4"
   },
   "devDependencies": {
     "@open-wc/eslint-config": "^12.0.3",
     "@open-wc/testing": "^4.0.0",
-    "@types/mocha": "^10.0.7",
-    "@typescript-eslint/eslint-plugin": "^7.16.0",
-    "@typescript-eslint/parser": "^7.16.0",
-    "@vitest/coverage-v8": "^2.1.5",
+    "@types/mocha": "^10.0.10",
+    "@typescript-eslint/eslint-plugin": "^8.16.0",
+    "@typescript-eslint/parser": "^8.16.0",
+    "@vitest/coverage-v8": "^2.1.6",
     "@web/dev-server": "^0.4.6",
-    "@web/test-runner": "^0.18.2",
-    "concurrently": "^8.2.2",
-    "eslint": "^8.57.0",
+    "@web/test-runner": "^0.19.0",
+    "concurrently": "^9.1.0",
+    "eslint": "^9.15.0",
     "eslint-config-prettier": "^9.1.0",
-    "husky": "^9.0.11",
+    "husky": "^9.1.7",
     "jsdom": "^25.0.1",
-    "lint-staged": "^15.2.7",
-    "prettier": "^3.3.2",
-    "tslib": "^2.6.3",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.4.1",
+    "tslib": "^2.8.1",
     "tsup": "^8.3.5",
-    "typescript": "^5.5.3",
-    "vitest": "^2.1.5"
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.6"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
