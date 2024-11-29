@@ -1,4 +1,4 @@
-import { onCLS, onINP, onFCP, onLCP } from './web-vitals.js';
+import { onCLS, onINP, onFCP, onLCP, onTTFB } from './web-vitals.js';
 import { sendToAnalytics } from './send-to-analytics.js';
 
 const initWebVitalsEvents = () => {
@@ -6,6 +6,7 @@ const initWebVitalsEvents = () => {
   onFCP(sendToAnalytics);
   onINP(sendToAnalytics);
   onLCP(sendToAnalytics);
+  onTTFB(sendToAnalytics);
 };
 
 if (typeof window !== 'undefined' && 'gas4' in window) {
