@@ -5,6 +5,7 @@ import type {
   FCPAttribution,
   INPAttribution,
   LCPAttribution,
+  TTFBAttribution,
 } from 'web-vitals';
 
 describe('formatEventData', () => {
@@ -98,9 +99,8 @@ describe('formatEventData', () => {
       dnsDuration: 0,
       connectionDuration: 2015,
       requestDuration: 47,
-    };
+    } as TTFBAttribution;
 
-    // @ts-ignore
     const result = formatEventData('TTFB', attribution);
 
     expect(result).toEqual({
