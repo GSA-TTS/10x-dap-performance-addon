@@ -5,6 +5,7 @@ import type {
   FCPAttribution,
   INPAttribution,
   LCPAttribution,
+  TTFBAttribution,
 } from 'web-vitals';
 
 describe('formatEventData', () => {
@@ -88,6 +89,26 @@ describe('formatEventData', () => {
       debug_interaction_delay: Math.round(attribution.inputDelay),
       debug_processing_duration: Math.round(attribution.processingDuration),
       debug_presentation_delay: Math.round(attribution.presentationDelay),
+    });
+  });
+
+  it('should format TTFB data correctly', () => {
+    const attribution = {
+      waitingDuration: 0,
+      cacheDuration: 0,
+      dnsDuration: 0,
+      connectionDuration: 2015,
+      requestDuration: 47,
+    } as TTFBAttribution;
+
+    const result = formatEventData('TTFB', attribution);
+
+    expect(result).toEqual({
+      debug_cache_duration: attribution.cacheDuration,
+      debug_connection_duration: attribution.connectionDuration,
+      debug_dns_duration: attribution.dnsDuration,
+      debug_request_duration: attribution.requestDuration,
+      debug_waiting_duration: attribution.waitingDuration,
     });
   });
 
@@ -457,6 +478,96 @@ describe('formatEventData', () => {
 //       "size": 18772,
 //       "id": "",
 //       "url": ""
+//     }
+//   }
+// }
+
+// {
+//   "name": "TTFB",
+//   "value": 2062,
+//   "rating": "poor",
+//   "delta": 2062,
+//   "entries": [
+//     {
+//       "name": "http://localhost:8000/demo/",
+//       "entryType": "navigation",
+//       "startTime": 0,
+//       "duration": 4181,
+//       "initiatorType": "navigation",
+//       "nextHopProtocol": "http/1.1",
+//       "workerStart": 0,
+//       "redirectStart": 0,
+//       "redirectEnd": 0,
+//       "fetchStart": -21,
+//       "domainLookupStart": -21,
+//       "domainLookupEnd": -21,
+//       "connectStart": -21,
+//       "connectEnd": 2015,
+//       "secureConnectionStart": 0,
+//       "requestStart": 2016,
+//       "responseStart": 2062,
+//       "responseEnd": 2062,
+//       "transferSize": 4277,
+//       "encodedBodySize": 3977,
+//       "decodedBodySize": 3977,
+//       "responseStatus": 200,
+//       "contentType": "text/html",
+//       "serverTiming": [],
+//       "unloadEventStart": 0,
+//       "unloadEventEnd": 0,
+//       "domInteractive": 2126,
+//       "domContentLoadedEventStart": 2199,
+//       "domContentLoadedEventEnd": 2200,
+//       "domComplete": 4180,
+//       "loadEventStart": 4180,
+//       "loadEventEnd": 4181,
+//       "type": "navigate",
+//       "redirectCount": 0
+//     }
+//   ],
+//   "id": "v4-1732826806920-8943990242578",
+//   "navigationType": "navigate",
+//   "attribution": {
+//     "waitingDuration": 0,
+//     "cacheDuration": 0,
+//     "dnsDuration": 0,
+//     "connectionDuration": 2015,
+//     "requestDuration": 47,
+//     "navigationEntry": {
+//       "name": "http://localhost:8000/demo/",
+//       "entryType": "navigation",
+//       "startTime": 0,
+//       "duration": 4181,
+//       "initiatorType": "navigation",
+//       "nextHopProtocol": "http/1.1",
+//       "workerStart": 0,
+//       "redirectStart": 0,
+//       "redirectEnd": 0,
+//       "fetchStart": -21,
+//       "domainLookupStart": -21,
+//       "domainLookupEnd": -21,
+//       "connectStart": -21,
+//       "connectEnd": 2015,
+//       "secureConnectionStart": 0,
+//       "requestStart": 2016,
+//       "responseStart": 2062,
+//       "responseEnd": 2062,
+//       "transferSize": 4277,
+//       "encodedBodySize": 3977,
+//       "decodedBodySize": 3977,
+//       "responseStatus": 200,
+//       "contentType": "text/html",
+//       "serverTiming": [],
+//       "unloadEventStart": 0,
+//       "unloadEventEnd": 0,
+//       "domInteractive": 2126,
+//       "domContentLoadedEventStart": 2199,
+//       "domContentLoadedEventEnd": 2200,
+//       "domComplete": 4180,
+//       "loadEventStart": 4180,
+//       "loadEventEnd": 4181,
+//       "type": "navigate",
+//       "redirectCount": 0
 //     }
 //   }
 // }
