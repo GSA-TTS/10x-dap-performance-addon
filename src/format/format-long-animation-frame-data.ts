@@ -98,7 +98,7 @@ export const formatLongAnimationFrameData = (
           : 0,
 
         // Stats for the longest script in the LoAF entry.
-        debug_loaf_script_total_duration: script.duration,
+        debug_loaf_script_total_duration: totalDuration,
         debug_loaf_script_compile_duration:
           script.executionStart - script.startTime,
         debug_loaf_script_exec_duration:

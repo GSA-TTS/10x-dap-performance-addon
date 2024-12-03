@@ -5,6 +5,10 @@ import type {
   LCPAttribution,
   TTFBAttribution,
 } from 'web-vitals';
+import {
+  type DAPINPAttribution,
+  formatLongAnimationFrameData,
+} from './format-long-animation-frame-data.js';
 
 export type WebVitalsName = 'CLS' | 'FCP' | 'INP' | 'LCP' | 'TTFB';
 export type WebVitalsAttribution =
@@ -54,7 +58,7 @@ export const formatEventData = (
         debug_presentation_delay: Math.round(
           (attribution as INPAttribution).presentationDelay,
         ),
-        // TODO: add LoAf attribution here
+        ...formatLongAnimationFrameData(attribution as DAPINPAttribution),
       };
     }
     if (name === 'LCP') {
