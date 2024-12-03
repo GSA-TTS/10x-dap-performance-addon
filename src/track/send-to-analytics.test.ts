@@ -3,7 +3,7 @@ import {
   type WebVitalsWithAttribution,
 } from './send-to-analytics.js';
 import { formatEventData } from '../format/format-event-data.js';
-import { describe, expect, it, vi, afterEach } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import type { TTFBMetricWithAttribution } from 'web-vitals';
 
 declare global {
@@ -129,9 +129,5 @@ describe('sendToAnalytics', () => {
     const payload = createDefaultPayload();
     sendToAnalytics(payload);
     expect(globalThis.gas4).toBeUndefined();
-  });
-
-  afterEach(() => {
-    delete (globalThis as { gas4?: () => void }).gas4;
   });
 });
