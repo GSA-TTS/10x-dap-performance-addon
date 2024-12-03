@@ -1,5 +1,5 @@
 import { it, describe, expect } from 'vitest';
-import { formatLongAnimationFrameData } from '../../src/format-long-animation-frame-data.js';
+import { formatLongAnimationFrameData } from './format-long-animation-frame-data.js';
 
 describe('formatLongAnimationFrameData', () => {
   it('should format INP data correctly', () => {
@@ -35,7 +35,7 @@ describe('formatLongAnimationFrameData', () => {
       ],
     };
 
-    // @ts-ignore
+    // @ts-expect-error - the object is pared down for testing. It won't be compliant with all props for the type
     const result = formatLongAnimationFrameData(attribution);
 
     expect(result).toEqual({
@@ -109,7 +109,7 @@ describe('formatLongAnimationFrameData', () => {
       ],
     };
 
-    // @ts-ignore
+    // @ts-expect-error - the object is pared down for testing. It won't be compliant with all props for the type
     const result = formatLongAnimationFrameData(attribution);
 
     expect(result).toEqual({
@@ -161,14 +161,14 @@ describe('formatLongAnimationFrameData', () => {
       loadState: 'complete',
     };
 
-    // @ts-ignore
+    // @ts-expect-error - the object is pared down for testing. It won't be compliant with all props for the type
     const result = formatLongAnimationFrameData(attribution);
 
     expect(result).toEqual({});
   });
 
   it('should return default params if no attribution data is provided', () => {
-    // @ts-ignore
+    // @ts-expect-error - the object is pared down for testing. It won't be compliant with all props for the type
     const result = formatLongAnimationFrameData('unknown', null);
 
     expect(result).toEqual({});

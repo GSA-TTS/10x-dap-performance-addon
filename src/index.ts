@@ -1,11 +1,10 @@
 import { onCLS, onINP, onFCP, onLCP, onTTFB } from './web-vitals.js';
-import { sendToAnalytics } from './send-to-analytics.js';
+import { sendToAnalytics } from './track/send-to-analytics.js';
 
 const initWebVitalsEvents = () => {
   onCLS(sendToAnalytics);
   onFCP(sendToAnalytics);
   onINP(sendToAnalytics);
-  onINP(console.log);
   onLCP(sendToAnalytics);
   onTTFB(sendToAnalytics);
 };

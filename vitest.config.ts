@@ -3,7 +3,7 @@ import { resolve } from 'path';
 
 export default defineConfig({
   test: {
-    include: ['test/unit/**/*.test.ts'],
+    include: ['src/**/*.test.ts'],
     globals: true,
     environment: 'jsdom',
   },
