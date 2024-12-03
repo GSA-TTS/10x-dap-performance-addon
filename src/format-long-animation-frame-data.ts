@@ -1,7 +1,32 @@
 import type { INPAttribution } from 'web-vitals';
 
+interface PerformanceLoAfTiming extends PerformanceEntry {
+  renderStart: DOMHighResTimeStamp;
+  duration: DOMHighResTimeStamp;
+  styleAndLayoutStart: DOMHighResTimeStamp;
+  scripts: LoAfScriptEntry[];
+}
+
+interface LoAfScriptEntry {
+  duration: DOMHighResTimeStamp;
+  executionStart: DOMHighResTimeStamp;
+  startTime: DOMHighResTimeStamp;
+  forcedStyleAndLayoutDuration: DOMHighResTimeStamp;
+  invokerType: string;
+  invoker: string;
+  sourceURL: string;
+  sourceFunctionName: string;
+  sourceCharPosition: number;
+  pauseDuration: DOMHighResTimeStamp;
+  windowAttribution: string;
+}
+
+export interface DAPINPAttribution extends INPAttribution {
+  longAnimationFrameEntries: PerformanceLoAfTiming[];
+}
+
 /**
- * Properties of note
+ * Properties of note - from https://io.google/2024/explore/ba446093-0036-410b-ba1e-f9016ec21899/
  *
  * // Long-running event handler would be like the below:
  * const { invokerType } = script; // always event-listener for long event handlers
@@ -26,24 +51,30 @@ import type { INPAttribution } from 'web-vitals';
  * const { sourceCharPosition } = script; // 83
  * const { sourceFunctionName } = script; // update
  */
-export const formatLongAnimationFrameData = (attribution: INPAttribution) => {
+export const formatLongAnimationFrameData = (
+  attribution: DAPINPAttribution,
+) => {
   const loafEntries = attribution.longAnimationFrameEntries;
   if (typeof loafEntries === 'undefined' || loafEntries.length === 0) {
     return {};
   }
 
-  let loafAttribution = {
-    debug_loaf_script_total_duration: 0,
-  };
+  let totalDuration = 0;
+  let loafAttribution = {};
 
   // The last LoAF entry is usually the most relevant.
-  const loaf = attribution.longAnimationFrameEntries.at(-1);
+  const loaf: PerformanceLoAfTiming | undefined =
+    attribution.longAnimationFrameEntries.at(-1);
   if (typeof loaf !== 'undefined') {
     const loafEndTime = loaf.startTime + loaf.duration;
-    loaf?.scripts.forEach(script => {
-      if (script.duration <= loafAttribution.debug_loaf_script_total_duration) {
+    loaf.scripts.forEach(script => {
+      if (script.duration <= totalDuration) {
         return;
       }
+
+      // track the max total duration over the loop
+      totalDuration = script.duration;
+
       loafAttribution = {
         // Stats for the LoAF entry itself.
         debug_loaf_entry_start_time: loaf.startTime,
@@ -88,7 +119,7 @@ export const formatLongAnimationFrameData = (attribution: INPAttribution) => {
     });
   }
 
-  if (!loafAttribution.debug_loaf_script_total_duration) {
+  if (!totalDuration) {
     return {};
   }
 
