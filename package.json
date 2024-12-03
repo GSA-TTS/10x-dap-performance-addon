@@ -18,13 +18,11 @@
     "prepublish": "tsup",
     "lint": "eslint && prettier \"**/*.ts\" --check --ignore-path .gitignore",
     "format": "eslint . --fix && prettier \"**/*.ts\" --write --ignore-path .gitignore",
-    "prepare": "husky",
     "test": "vitest",
     "test:watch": "vitest --watch",
     "test:coverage": "vitest --coverage"
   },
   "dependencies": {
-    "lit": "^3.2.1",
     "web-vitals": "^4.2.4"
   },
   "devDependencies": {

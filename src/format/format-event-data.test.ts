@@ -1,5 +1,5 @@
 import { it, describe, expect } from 'vitest';
-import { formatEventData } from '../../src/format-event-data.js';
+import { formatEventData } from './format-event-data.js';
 import type {
   CLSAttribution,
   FCPAttribution,

@@ -6,7 +6,10 @@ import type {
   TTFBMetricWithAttribution,
 } from 'web-vitals';
 
-import { formatEventData, type WebVitalsName } from './format-event-data.js';
+import {
+  formatEventData,
+  type WebVitalsName,
+} from '../format/format-event-data.js';
 
 export type WebVitalsWithAttribution =
   | CLSMetricWithAttribution
@@ -15,7 +18,10 @@ export type WebVitalsWithAttribution =
   | LCPMetricWithAttribution
   | TTFBMetricWithAttribution;
 
-declare const gas4: unknown;
+export type Gas4Function = (name: string, params: unknown) => void;
+
+// Assuming gas4 is globally available or imported from elsewhere
+declare const gas4: Gas4Function;
 
 export const sendToAnalytics = ({
   name,
