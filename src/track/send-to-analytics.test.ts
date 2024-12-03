@@ -43,7 +43,6 @@ const createDefaultPayload = (): WebVitalsWithAttribution => {
         encodedBodySize: 3977,
         decodedBodySize: 3977,
         responseStatus: 200,
-        contentType: 'text/html',
         serverTiming: [],
         unloadEventStart: 0,
         unloadEventEnd: 0,
@@ -55,6 +54,9 @@ const createDefaultPayload = (): WebVitalsWithAttribution => {
         loadEventEnd: 4181,
         type: 'navigate',
         redirectCount: 0,
+        toJSON: (): void => {
+          /*no-op*/
+        },
       },
     ],
     id: 'v4-1732826806920-8943990242578',
@@ -88,7 +90,6 @@ const createDefaultPayload = (): WebVitalsWithAttribution => {
         encodedBodySize: 3977,
         decodedBodySize: 3977,
         responseStatus: 200,
-        contentType: 'text/html',
         serverTiming: [],
         unloadEventStart: 0,
         unloadEventEnd: 0,
@@ -100,6 +101,9 @@ const createDefaultPayload = (): WebVitalsWithAttribution => {
         loadEventEnd: 4181,
         type: 'navigate',
         redirectCount: 0,
+        toJSON: (): void => {
+          /*no-op*/
+        },
       },
     },
   } satisfies TTFBMetricWithAttribution;
@@ -121,13 +125,13 @@ describe('sendToAnalytics', () => {
   });
 
   it('should not send event to analytics if gas4 function is not defined', () => {
-    delete globalThis.gas4;
+    delete (globalThis as { gas4?: () => void }).gas4;
     const payload = createDefaultPayload();
     sendToAnalytics(payload);
     expect(globalThis.gas4).toBeUndefined();
   });
 
   afterEach(() => {
-    delete globalThis.gas4;
+    delete (globalThis as { gas4?: () => void }).gas4;
   });
 });
