@@ -6,6 +6,9 @@ export default defineConfig({
     include: ['src/**/*.test.ts'],
     globals: true,
     environment: 'jsdom',
+    coverage: {
+      include: ['src/**/*'],
+    },
   },
   resolve: {
     alias: {

@@ -173,6 +173,51 @@ describe('formatLongAnimationFrameData', () => {
 
     expect(result).toEqual({});
   });
+
+  it('should format INP data correctly if there is falsy data', () => {
+    const attribution = {
+      longAnimationFrameEntries: [
+        {
+          name: 'long-animation-frame',
+          entryType: 'long-animation-frame',
+          startTime: 5168847.600000024,
+          duration: 90,
+          renderStart: '',
+          styleAndLayoutStart: '',
+          firstUIEventTimestamp: 5168847,
+          blockingDuration: 38,
+          scripts: [
+            {
+              name: 'script',
+              entryType: 'script',
+              startTime: 5168847.899999976,
+              duration: 85,
+              invoker: 'BUTTON#thrash-layout.onclick',
+              invokerType: 'event-listener',
+              windowAttribution: 'self',
+              executionStart: 5168847.899999976,
+              forcedStyleAndLayoutDuration: 80,
+              pauseDuration: 0,
+              sourceURL: 'http://localhost:8000/demo/',
+              sourceFunctionName: '',
+              sourceCharPosition: 72,
+            },
+          ],
+        },
+      ],
+    };
+
+    const {
+      debug_loaf_entry_render_duration,
+      debug_loaf_entry_style_and_layout_duration,
+      debug_loaf_entry_work_duration,
+      // @ts-expect-error - the object is pared down for testing. It won't be compliant with all props for the type
+    } = formatLongAnimationFrameData(attribution);
+
+    expect(debug_loaf_entry_render_duration).toEqual(0);
+    expect(debug_loaf_entry_style_and_layout_duration).toEqual(0);
+    expect(debug_loaf_entry_work_duration).toEqual(90);
+  });
 });
 
 /**
