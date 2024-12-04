@@ -9,12 +9,17 @@ const initWebVitalsEvents = () => {
   onTTFB(sendToAnalytics);
 };
 
-if (typeof window !== 'undefined' && 'gas4' in window) {
-  initWebVitalsEvents();
-} else {
-  window.addEventListener('dap-universal-federated-analytics-load', () => {
+if (typeof window !== 'undefined') {
+  if ('gas4' in window) {
     initWebVitalsEvents();
-  });
+  } else {
+    (window as Window).addEventListener(
+      'dap-universal-federated-analytics-load',
+      () => {
+        initWebVitalsEvents();
+      },
+    );
+  }
 }
 
 performance.mark('dap-performance-addon-loaded');
