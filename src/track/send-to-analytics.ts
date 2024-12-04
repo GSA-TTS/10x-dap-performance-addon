@@ -40,7 +40,7 @@ export const sendToAnalytics = ({
       metric_value: value, // Value for querying in BQ
       metric_delta: delta, // Delta for querying in BQ
       metric_navigation_type: navigationType,
-      // Send the returned values from getDebugInfo() as custom parameters
+      // Send the returned values from formatEventData() as custom parameters
       ...formatEventData(name as WebVitalsName, attribution),
     });
   }
