@@ -1,6 +1,7 @@
-import { defineConfig } from 'tsup';
+import { defineConfig, type Options } from 'tsup';
+type PartialOptions = Partial<Options>;
 
-export default defineConfig({
+const devConfig: Options = {
   entry: {
     'dap-performance-addon': 'src/index.ts',
   },
@@ -10,4 +11,17 @@ export default defineConfig({
   globalName: 'dapPerformance',
   clean: true,
   noExternal: ['web-vitals'],
-});
+  minify: false,
+  sourcemap: true,
+};
+
+const prodConfig: PartialOptions = {
+  ...devConfig,
+  entry: {
+    'dap-performance-addon.min': 'src/index.ts',
+  },
+  dts: false,
+  minify: true,
+};
+
+export default defineConfig([devConfig, prodConfig]);
