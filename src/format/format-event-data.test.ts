@@ -1,5 +1,5 @@
 import { it, describe, expect } from 'vitest';
-import { formatEventData } from './format-event-data.js';
+import { formatEventData, NOT_SET_MESSAGE } from './format-event-data.js';
 import type {
   CLSAttribution,
   FCPAttribution,
@@ -9,7 +9,7 @@ import type {
 } from 'web-vitals';
 
 describe('formatEventData', () => {
-  it('should format CLS data correctly', () => {
+  it('should format CLS data', () => {
     const attribution = {
       largestShiftTime: 1000,
       loadState: 'complete',
@@ -25,7 +25,23 @@ describe('formatEventData', () => {
     });
   });
 
-  it('should format FCP data correctly', () => {
+  it('should handle CLS attribution with no largestShiftTarget', () => {
+    const attribution = {
+      largestShiftTime: 1000,
+      loadState: 'complete',
+      largestShiftTarget: undefined,
+    } satisfies CLSAttribution;
+
+    const result = formatEventData('CLS', attribution);
+
+    expect(result).toEqual({
+      debug_time: attribution.largestShiftTime,
+      debug_load_state: attribution.loadState,
+      debug_target: NOT_SET_MESSAGE,
+    });
+  });
+
+  it('should format FCP data', () => {
     const attribution = {
       timeToFirstByte: 7.199999999254942,
       firstByteToFCP: 456.9000000022352,
@@ -42,29 +58,26 @@ describe('formatEventData', () => {
     });
   });
 
-  it('should format LCP data correctly', () => {
+  it('should handle FCP attribution if loadState is not set', () => {
     const attribution = {
-      url: 'https://localhost/',
-      timeToFirstByte: 100,
-      resourceLoadDelay: 50,
-      resourceLoadDuration: 120,
-      elementRenderDelay: 10,
-      element: 'body>div#main',
-    } satisfies LCPAttribution;
+      timeToFirstByte: 7.199999999254942,
+      firstByteToFCP: 456.9000000022352,
+      // @ts-expect-error - deviate from the type
+      loadState: '',
+    } satisfies FCPAttribution;
 
-    const result = formatEventData('LCP', attribution);
+    // @ts-expect-error - deviate from the type
+    const result = formatEventData('FCP', attribution);
 
     expect(result).toEqual({
-      debug_url: attribution.url,
       debug_time_to_first_byte: attribution.timeToFirstByte,
-      debug_resource_load_delay: attribution.resourceLoadDelay,
-      debug_resource_load_duration: attribution.resourceLoadDuration,
-      debug_element_render_delay: attribution.elementRenderDelay,
-      debug_target: attribution.element,
+      debug_first_byte_to_fcp: attribution.firstByteToFCP,
+      debug_load_state: attribution.loadState,
+      debug_target: NOT_SET_MESSAGE,
     });
   });
 
-  it('should format INP data correctly', () => {
+  it('should format INP data', () => {
     const attribution = {
       interactionTarget: 'html>body',
       interactionTargetElement: undefined,
@@ -92,7 +105,79 @@ describe('formatEventData', () => {
     });
   });
 
-  it('should format TTFB data correctly', () => {
+  it('should handle INP data if interactionTarget is not set', () => {
+    const attribution = {
+      interactionTarget: '',
+      interactionTargetElement: undefined,
+      interactionType: 'keyboard',
+      interactionTime: 235.5,
+      nextPaintTime: 435.5,
+      processedEventEntries: [],
+      longAnimationFrameEntries: [],
+      inputDelay: 0.5,
+      processingDuration: 93,
+      presentationDelay: 106.5,
+      loadState: 'dom-interactive',
+    } satisfies INPAttribution;
+
+    const result = formatEventData('INP', attribution);
+
+    expect(result).toEqual({
+      debug_event: attribution.interactionType,
+      debug_time: Math.round(attribution.interactionTime),
+      debug_load_state: attribution.loadState,
+      debug_target: NOT_SET_MESSAGE,
+      debug_interaction_delay: Math.round(attribution.inputDelay),
+      debug_processing_duration: Math.round(attribution.processingDuration),
+      debug_presentation_delay: Math.round(attribution.presentationDelay),
+    });
+  });
+
+  it('should format LCP data', () => {
+    const attribution = {
+      url: 'https://localhost/',
+      timeToFirstByte: 100,
+      resourceLoadDelay: 50,
+      resourceLoadDuration: 120,
+      elementRenderDelay: 10,
+      element: 'body>div#main',
+    } satisfies LCPAttribution;
+
+    const result = formatEventData('LCP', attribution);
+
+    expect(result).toEqual({
+      debug_url: attribution.url,
+      debug_time_to_first_byte: attribution.timeToFirstByte,
+      debug_resource_load_delay: attribution.resourceLoadDelay,
+      debug_resource_load_duration: attribution.resourceLoadDuration,
+      debug_element_render_delay: attribution.elementRenderDelay,
+      debug_target: attribution.element,
+    });
+  });
+
+  it('should handle LCP data if the element is not set', () => {
+    const attribution = {
+      url: 'https://localhost/',
+      timeToFirstByte: 100,
+      resourceLoadDelay: 50,
+      resourceLoadDuration: 120,
+      elementRenderDelay: 10,
+      element: '',
+    } satisfies LCPAttribution;
+
+    const result = formatEventData('LCP', attribution);
+
+    expect(result).toEqual({
+      debug_url: attribution.url,
+      debug_time_to_first_byte: attribution.timeToFirstByte,
+      debug_resource_load_delay: attribution.resourceLoadDelay,
+      debug_resource_load_duration: attribution.resourceLoadDuration,
+      debug_element_render_delay: attribution.elementRenderDelay,
+      debug_target: NOT_SET_MESSAGE,
+    });
+  });
+
+  it('should format TTFB data', () => {
     const attribution = {
       waitingDuration: 0,
       cacheDuration: 0,
@@ -112,9 +197,26 @@ describe('formatEventData', () => {
     });
   });
 
+  it('should ignore the deprecated FID event', () => {
+    const attribution = {
+      waitingDuration: 0,
+      cacheDuration: 0,
+      dnsDuration: 0,
+      connectionDuration: 2015,
+      requestDuration: 47,
+    } as TTFBAttribution;
+
+    // @ts-expect-error - FID is deprecated
+    const result = formatEventData('FID', attribution);
+
+    expect(result).toEqual({
+      debug_target: NOT_SET_MESSAGE,
+    });
+  });
+
   it('should return default/empty params if no attribution data is provided', () => {
-    // @ts-expect-error - unknown is not valid
-    const result = formatEventData('unknown', null);
+    // @ts-expect-error - null is not valid for arg2
+    const result = formatEventData('TTFB', null);
 
     expect(result).toEqual({
       debug_target: '(not set)',
