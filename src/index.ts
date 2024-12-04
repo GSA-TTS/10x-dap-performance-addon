@@ -20,6 +20,8 @@ if (typeof window !== 'undefined') {
       },
     );
   }
-}
 
-performance.mark('dap-performance-addon-loaded');
+  if ('performance' in window) {
+    performance.mark('dap-performance-addon-loaded');
+  }
+}
