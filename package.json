@@ -10,23 +10,32 @@
   "exports": {
     "./dap-performance-addon.cjs": "./dist/dap-performance-addon.cjs",
     "./dap-performance-addon.global.js": "./dist/dap-performance-addon.global.js",
-    "./dap-performance-addon.js": "./dist/dap-performance-addon.js"
+    "./dap-performance-addon.js": "./dist/dap-performance-addon.js",
+    "./dap-performance-addon.min.cjs": "./dist/dap-performance-addon.min.cjs",
+    "./dap-performance-addon.global.min.js": "./dist/dap-performance-addon.min.global.js",
+    "./dap-performance-addon.min.js": "./dist/dap-performance-addon.min.js"
   },
   "scripts": {
     "start": "tsup && concurrently -k -r \"tsup --watch\" \"web-dev-server\"",
     "build": "tsup",
+    "size": "npm run build && size-limit",
     "prepublish": "tsup",
     "lint": "eslint && prettier \"**/*.ts\" --check --ignore-path .gitignore",
     "format": "eslint . --fix && prettier \"**/*.ts\" --write --ignore-path .gitignore",
-    "test": "vitest",
+    "test": "vitest run && npm run size",
     "test:watch": "vitest --watch",
     "test:coverage": "vitest --coverage"
   },
+  "size-limit": [{
+    "limit": "6 kB",
+    "path": "dist/dap-performance-addon.min.js"
+  }],
   "dependencies": {
     "web-vitals": "^4.2.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.16.0",
+    "@size-limit/file": "^11.1.6",
     "@types/mocha": "^10.0.10",
     "@vitest/coverage-v8": "^2.1.6",
     "@web/dev-server": "^0.4.6",
@@ -40,6 +49,7 @@
     "jsdom": "^25.0.1",
     "lint-staged": "^15.2.10",
     "prettier": "^3.4.1",
+    "size-limit": "^11.1.6",
     "tslib": "^2.8.1",
     "tsup": "^8.3.5",
     "typescript": "^5.7.2",
