@@ -1,4 +1,4 @@
-# Digital Analytics Program Performance (DAP) Add-on
+# Digital Analytics Program (DAP) Performance Add-on
 
 This is a proof-of-concept for an add-on for DAP's implementation of GA4. It provides data formatting for the events 
 from the Google's [`web-vitals`](https://github.com/GoogleChrome/web-vitals) package that would use Google Analytics as 
