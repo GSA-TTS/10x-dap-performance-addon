@@ -18,10 +18,10 @@
   "scripts": {
     "start": "tsup && concurrently -k -r \"tsup --watch\" \"web-dev-server\"",
     "build": "tsup",
-    "size": "npm run build && size-limit",
     "prepublish": "tsup",
     "lint": "eslint && prettier \"**/*.ts\" --check --ignore-path .gitignore",
     "format": "eslint . --fix && prettier \"**/*.ts\" --write --ignore-path .gitignore",
+    "size": "npm run build && size-limit",
     "test": "vitest run && npm run size",
     "test:watch": "vitest --watch",
     "test:coverage": "vitest --coverage"
